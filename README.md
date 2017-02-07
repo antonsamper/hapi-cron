@@ -7,12 +7,12 @@ npm install --save hapi-cron
 ```
 
 ## Usage
-```
+```javascript
 const Hapi = require('hapi');
-const server = new Hapi.Server();
-server.connection();
+const Server = new Hapi.Server();
+Server.connection();
 
-server.register({
+Server.register({
     register: require('hapi-cron'),
     options: {
         jobs: [{
@@ -32,21 +32,21 @@ server.register({
         return console.error(err);
     }
     
-    server.start(() => {
+    Server.start(() => {
     
-        console.info(`Server started at ${ server.info.uri }`);
+        console.info(`Server started at ${ Server.info.uri }`);
     });
 });
 ```
 
-## Options
+## Plugin Options
 
-* `name` - [REQUIRED] - The name of the cron job. This must be unique.
+* `name` - [REQUIRED] - The name of the cron job. This can be anything but it must be unique.
 * `time` - [REQUIRED] - A valid cron value. [See cron configuration](#cron-configuration)
 * `timezone` - [REQUIRED] - A valid timezone.
 * `request` - [REQUIRED] - The request object containing the route url path. Other [options](https://hapijs.com/api#serverinjectoptions-callback) can also be passed into the request object.
     * `url` - [REQUIRED] - Route path to request
-* `callback` - [OPTIONAL] - Callback function to run after the route has been requested. The function will contain the response object from the request.
+* `callback` - [OPTIONAL] - Callback function to run after the route has been requested. The function will contain the response from the request.
 
 Please note that the plugin only works when the server contains exactly one connection.
 
