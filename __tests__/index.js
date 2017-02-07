@@ -182,7 +182,7 @@ describe('registration assertions', () => {
     });
 });
 
-describe('cron functionality', () => {
+describe('plugin functionality', () => {
 
     let server;
     const callback = jest.fn();
@@ -217,13 +217,13 @@ describe('cron functionality', () => {
         });
     });
 
-    it('expose access to registered cron jobs vie server.plugins', () => {
+    it('should expose access to registered cron jobs vie server.plugins', () => {
 
         expect(server.plugins['hapi-cron']).toBeDefined();
         expect(server.plugins['hapi-cron'].jobs.testcron).toBeDefined();
     });
 
-    it('call internal endpoint every 10 seconds', () => {
+    it('should ensure server.inject is called with the plugin options', () => {
 
         expect(server.connections[0].inject).not.toHaveBeenCalled();
 
