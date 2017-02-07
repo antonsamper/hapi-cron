@@ -1,0 +1,49 @@
+{
+  "name": "hapi-cron",
+  "version": "0.0.0",
+  "description": "Cron jobs for internal hapi.js routes",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm run eslint && jest",
+    "eslint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonsamper/hapi-cron.git"
+  },
+  "keywords": [
+    "hapi",
+    "plugin",
+    "cron"
+  ],
+  "author": "Anton Samper Rivaya",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/antonsamper/hapi-cron/issues"
+  },
+  "homepage": "https://github.com/antonsamper/hapi-cron#readme",
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-hapi": "^10.0.0",
+    "eslint-plugin-hapi": "^4.0.0",
+    "hapi": "^16.1.0",
+    "jest": "^18.1.0"
+  },
+  "dependencies": {
+    "cron": "^1.2.1"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  }
+}
