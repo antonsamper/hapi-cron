@@ -119,6 +119,28 @@ describe('registration assertions', () => {
         }).toThrowError('Time is not a cron expression');
     });
 
+    it('should throw error when a job is defined with an invalid timezone', () => {
+
+        const server = new Hapi.Server();
+
+        expect(() => {
+
+            server.register({
+                register: CronPlugin,
+                options: {
+                    jobs: [{
+                        name: 'testcron',
+                        time: '*/10 * * * * *',
+                        timezone: 'invalid',
+                        request: {
+                            url: '/test-url'
+                        }
+                    }]
+                }
+            }, Hoek.ignore);
+        }).toThrowError('Invalid timezone. See https://momentjs.com/timezone for valid timezones');
+    });
+
     it('should throw error when a job is defined without a timezone', () => {
 
         const server = new Hapi.Server();
