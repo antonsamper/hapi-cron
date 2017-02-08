@@ -1,6 +1,6 @@
 {
   "name": "hapi-cron",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cron jobs for internal hapi.js routes",
   "main": "lib/index.js",
   "scripts": {
