@@ -206,14 +206,37 @@ describe('registration assertions', () => {
 
 describe('plugin functionality', () => {
 
-    let server;
-    const callback = jest.fn();
+    it('should expose access to registered cron jobs vie server.plugins', () => {
 
-    beforeAll((done) => {
+        const server = new Hapi.Server();
 
-        server = new Hapi.Server();
+        server.register({
+            register: CronPlugin,
+            options: {
+                jobs: [{
+                    name: 'testcron',
+                    time: '*/10 * * * * *',
+                    timezone: 'Europe/London',
+                    request: {
+                        method: 'GET',
+                        url: '/test-url'
+                    }
+                }]
+            }
+        }, (err) => {
 
-        server.connection({ port: 9000 });
+            expect(err).toBeUndefined();
+            expect(server.plugins['hapi-cron']).toBeDefined();
+            expect(server.plugins['hapi-cron'].jobs.testcron).toBeDefined();
+        });
+    });
+
+    it('should ensure server.inject is called with the plugin options', () => {
+
+        const callback =  jest.fn();
+        const server = new Hapi.Server();
+
+        server.connection();
 
         server.register({
             register: CronPlugin,
@@ -235,25 +258,90 @@ describe('plugin functionality', () => {
 
             server.connections[0].inject = jest.fn();
 
-            done();
+            expect(server.connections[0].inject).not.toHaveBeenCalled();
+
+            server.plugins['hapi-cron'].jobs.testcron._callbacks[0]();
+
+            expect(server.connections[0].inject).toHaveBeenCalledWith({
+                method: 'GET',
+                url: '/test-url'
+            }, callback);
         });
     });
 
-    it('should expose access to registered cron jobs vie server.plugins', () => {
+    it('should not start the jobs until the server starts', (done) => {
 
-        expect(server.plugins['hapi-cron']).toBeDefined();
-        expect(server.plugins['hapi-cron'].jobs.testcron).toBeDefined();
+        const server = new Hapi.Server();
+
+        server.connection();
+
+        server.register({
+            register: CronPlugin,
+            options: {
+                jobs: [{
+                    name: 'testcron',
+                    time: '*/10 * * * * *',
+                    timezone: 'Europe/London',
+                    request: {
+                        method: 'GET',
+                        url: '/test-url'
+                    }
+                }]
+            }
+        }, (err) => {
+
+            expect(err).toBeUndefined();
+
+            expect(server.plugins['hapi-cron'].jobs.testcron.running).toBeUndefined();
+
+            server.start((err) => {
+
+                expect(err).toBeUndefined();
+
+                expect(server.plugins['hapi-cron'].jobs.testcron.running).toBe(true);
+
+                server.stop();
+
+                done();
+            });
+        });
     });
 
-    it('should ensure server.inject is called with the plugin options', () => {
+    it('should stop cron jobs when the server stops', (done) => {
 
-        expect(server.connections[0].inject).not.toHaveBeenCalled();
+        const server = new Hapi.Server();
 
-        server.plugins['hapi-cron'].jobs.testcron._callbacks[0]();
+        server.connection();
 
-        expect(server.connections[0].inject).toHaveBeenCalledWith({
-            method: 'GET',
-            url: '/test-url'
-        }, callback);
+        server.register({
+            register: CronPlugin,
+            options: {
+                jobs: [{
+                    name: 'testcron',
+                    time: '*/10 * * * * *',
+                    timezone: 'Europe/London',
+                    request: {
+                        method: 'GET',
+                        url: '/test-url'
+                    }
+                }]
+            }
+        }, (err) => {
+
+            expect(err).toBeUndefined();
+
+            server.start((err) => {
+
+                expect(err).toBeUndefined();
+
+                expect(server.plugins['hapi-cron'].jobs.testcron.running).toBe(true);
+
+                server.stop();
+
+                expect(server.plugins['hapi-cron'].jobs.testcron.running).toBe(false);
+
+                done();
+            });
+        });
     });
 });
