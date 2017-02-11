@@ -1,10 +1,19 @@
 # hapi-cron
 Cron jobs for internal hapi.js routes
 
+
+## Requirements
+The plugin is written in ES2016, please use **Node.js v4 or later**.
+
+
 ## Installation
+Add `hapi-cron` as a dependency to your project:
+
+```bash
+npm i -S hapi-cron
+# you're using NPM shortcuts to (i)nstall and (-S)ave the module as a dependency
 ```
-npm install --save hapi-cron
-```
+
 
 ## Usage
 ```javascript
@@ -43,7 +52,6 @@ Server.register({
 ```
 
 ## Plugin Options
-
 * `name` - [REQUIRED] - The name of the cron job. This can be anything but it must be unique.
 * `time` - [REQUIRED] - A valid cron value. [See cron configuration](#cron-configuration)
 * `timezone` - [REQUIRED] - A valid [timezone](https://momentjs.com/timezone/).
@@ -53,11 +61,12 @@ Server.register({
 
 Please note that the plugin only works when the server contains exactly one connection.
 
+
 ## Cron configuration
 This plugin uses the [node-cron](https://github.com/kelektiv/node-cron) module to setup the cron job. 
 
-### Available Cron patterns:
 
+### Available Cron patterns:
 ```
 Asterisk. E.g. *
 Ranges. E.g. 1-3,5
@@ -68,7 +77,6 @@ Steps. E.g. */2
 [Read up on cron patterns here](http://crontab.org). Note the examples in the link have five fields, and 1 minute as the finest granularity, but the node cron module allows six fields, with 1 second as the finest granularity.
 
 ### Cron Ranges
-
 When specifying your cron values you'll need to make sure that your values fall within the ranges. For instance, some cron's use a 0-7 range for the day of week where both 0 and 7 represent Sunday. We do not.
 
  * Seconds: 0-59
@@ -77,7 +85,3 @@ When specifying your cron values you'll need to make sure that your values fall 
  * Day of Month: 1-31
  * Months: 0-11
  * Day of Week: 0-6
-
-
-
-
