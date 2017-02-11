@@ -1,5 +1,5 @@
 # hapi-cron
-Cron jobs for internal hapi.js routes
+A hapi plugin to setup cron jobs that will call a predefined server route at a specified time.
 
 
 ## Requirements
