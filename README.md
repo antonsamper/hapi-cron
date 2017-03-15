@@ -10,8 +10,7 @@ The plugin is written in ES2016, please use **Node.js v4 or later**.
 Add `hapi-cron` as a dependency to your project:
 
 ```bash
-npm i -S hapi-cron
-# you're using NPM shortcuts to (i)nstall and (-S)ave the module as a dependency
+$ npm i -S hapi-cron
 ```
 
 
