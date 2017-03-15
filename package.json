@@ -30,7 +30,8 @@
     "jest": "^18.1.0"
   },
   "dependencies": {
-    "cron": "^1.2.1"
+    "cron": "^1.2.1",
+    "hoek": "^4.1.0"
   },
   "engines": {
     "node": ">=4.0.0"
