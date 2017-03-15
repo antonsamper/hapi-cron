@@ -1,4 +1,4 @@
-# hapi-cron
+# hapi-cron [![Build Status](https://travis-ci.org/antonsamper/hapi-cron.svg?branch=master)](https://travis-ci.org/antonsamper/hapi-cron)
 A hapi plugin to setup cron jobs that will call a predefined server route at a specified time.
 
 
