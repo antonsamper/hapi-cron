@@ -27,7 +27,7 @@
     "eslint-config-hapi": "^10.0.0",
     "eslint-plugin-hapi": "^4.0.0",
     "hapi": "^16.1.0",
-    "jest": "^18.1.0"
+    "jest": "^19.0.2"
   },
   "dependencies": {
     "cron": "^1.2.1",
