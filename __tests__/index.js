@@ -203,7 +203,7 @@ describe('registration assertions', () => {
 
 describe('plugin functionality', () => {
 
-    it('should expose access to the registered jobs', () => {
+    it('should expose access to the registered jobs', (done) => {
 
         const server = new Hapi.Server();
 
@@ -225,10 +225,11 @@ describe('plugin functionality', () => {
             expect(err).toBeUndefined();
             expect(server.plugins['hapi-cron']).toBeDefined();
             expect(server.plugins['hapi-cron'].jobs.testcron).toBeDefined();
+            done();
         });
     });
 
-    it('should ensure server.inject is called with the plugin options', () => {
+    it('should ensure server.inject is called with the plugin options', (done) => {
 
         const callback =  jest.fn();
         const server = new Hapi.Server();
@@ -263,6 +264,7 @@ describe('plugin functionality', () => {
                 method: 'GET',
                 url: '/test-url'
             }, callback);
+            done();
         });
     });
 
