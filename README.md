@@ -50,7 +50,7 @@ Server.register({
 });
 ```
 
-## Plugin Options
+## Options
 * `name` - [REQUIRED] - The name of the cron job. This can be anything but it must be unique.
 * `time` - [REQUIRED] - A valid cron value. [See cron configuration](#cron-configuration)
 * `timezone` - [REQUIRED] - A valid [timezone](https://momentjs.com/timezone/).
@@ -65,7 +65,7 @@ Please note that the plugin only works when the server contains exactly one conn
 This plugin uses the [node-cron](https://github.com/kelektiv/node-cron) module to setup the cron job. 
 
 
-### Available Cron patterns:
+### Available cron patterns:
 ```
 Asterisk. E.g. *
 Ranges. E.g. 1-3,5
