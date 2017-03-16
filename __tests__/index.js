@@ -203,7 +203,7 @@ describe('registration assertions', () => {
 
 describe('plugin functionality', () => {
 
-    it('should expose access to registered cron jobs vie server.plugins', () => {
+    it('should expose access to the registered jobs', () => {
 
         const server = new Hapi.Server();
 
