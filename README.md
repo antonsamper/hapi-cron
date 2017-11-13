@@ -11,7 +11,7 @@ If you need a version compatible with **hapi** v16 please install version [0.0.3
 Add `hapi-cron` as a dependency to your project:
 
 ```bash
-$ npm i -S hapi-cron
+$ npm install --save hapi-cron
 ```
 
 
@@ -22,39 +22,52 @@ const HapiCron = require('hapi-cron');
 
 const server = new Hapi.Server();
 
-try {
-    await server.register({
-        plugin: HapiCron,
-        options: {
-            jobs: [{
-               name: 'testcron',
-               time: '*/10 * * * * *',
-               timezone: 'Europe/London',
-               request: {
-                   method: 'GET',
-                   url: '/test-url'
-               },
-               onComplete: (res) => {
-                 
-                   console.info('hapi cron has run');
-               }
-           }]
-        }
-    });
-}
-catch (err) {
-   console.info('there was an error');
+async function allSystemsGo() {
+
+    try {
+        await server.register({
+            plugin: HapiCron,
+            options: {
+                jobs: [{
+                    name: 'testcron',
+                    time: '*/10 * * * * *',
+                    timezone: 'Europe/London',
+                    request: {
+                        method: 'GET',
+                        url: '/test-url'
+                    },
+                    onComplete: (res) => {
+                        console.info('hapi cron has run');
+                    }
+                }]
+            }
+        });
+
+        server.route({
+            method: 'GET',
+            path: '/test-url',
+            handler: async function (request, h) {
+                return 'hello world'
+            }
+        });
+
+        await server.start();
+    }
+    catch (err) {
+        console.info('there was an error');
+    }
 }
 
+allSystemsGo();
 ```
 
 ## Options
-* `name` - [REQUIRED] - The name of the cron job. This can be anything but it must be unique.
-* `time` - [REQUIRED] - A valid cron value. [See cron configuration](#cron-configuration)
-* `timezone` - [REQUIRED] - A valid [timezone](https://momentjs.com/timezone/).
-* `request` - [REQUIRED] - The request object containing the route url path. Other [options](https://hapijs.com/api#serverinjectoptions-callback) can also be passed into the request object.
-    * `url` - [REQUIRED] - Route path to request
-* `onComplete` - [OPTIONAL] - Callback function to run after the route has been requested. The function will contain the response from the request.
+* `name` - The name of the cron job. This can be anything but it must be unique - `required`
+* `time` - A valid cron value. [See cron configuration](#cron-configuration) - `required`
+* `timezone` - A valid [timezone](https://momentjs.com/timezone/) - `required`
+* `request` - The request object containing the route url path. Other [options](https://hapijs.com/api#serverinjectoptions-callback) can also be passed into the request object  - `required`
+    * `url` - Route path to request - `required`
+* `onComplete` - Callback function to run after the route has been requested. The function will contain the response from the request - `optional`
 
 
 ## Cron configuration
