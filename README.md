@@ -3,7 +3,8 @@ A Hapi plugin to setup cron jobs that will call predefined server routes at spec
 
 
 ## Requirements
-The plugin is written in ES2016, please use **Node.js v4 or later**.
+This plugin is compatible with **hapi** v17+ and requires Node v8+.
+If you need a version compatible with **hapi** v16 please install version [0.0.3](https://github.com/antonsamper/hapi-cron/releases/tag/v0.0.3).
 
 
 ## Installation
@@ -17,37 +18,34 @@ $ npm i -S hapi-cron
 ## Usage
 ```javascript
 const Hapi = require('hapi');
-const Server = new Hapi.Server();
-Server.connection();
+const HapiCron = require('hapi-cron');
 
-Server.register({
-    register: require('hapi-cron'),
-    options: {
-        jobs: [{
-            name: 'testcron',
-            time: '*/10 * * * * *',
-            timezone: 'Europe/London',
-            request: {
-                method: 'GET',
-                url: '/test-url'
-            },
-            callback: (res) => {
-              
-                console.info('testcron has run!');
-            }
-        }]
-    },
-}, (err) => {
+const server = new Hapi.Server();
 
-    if (err) {
-        return console.error(err);
-    }
-    
-    Server.start(() => {
-    
-        console.info(`Server started at ${ Server.info.uri }`);
+try {
+    await server.register({
+        plugin: HapiCron,
+        options: {
+            jobs: [{
+               name: 'testcron',
+               time: '*/10 * * * * *',
+               timezone: 'Europe/London',
+               request: {
+                   method: 'GET',
+                   url: '/test-url'
+               },
+               onComplete: (res) => {
+                 
+                   console.info('hapi cron has run');
+               }
+           }]
+        }
     });
-});
+}
+catch (err) {
+   console.info('there was an error');
+}
+
 ```
 
 ## Options
@@ -56,9 +54,7 @@ Server.register({
 * `timezone` - [REQUIRED] - A valid [timezone](https://momentjs.com/timezone/).
 * `request` - [REQUIRED] - The request object containing the route url path. Other [options](https://hapijs.com/api#serverinjectoptions-callback) can also be passed into the request object.
     * `url` - [REQUIRED] - Route path to request
-* `callback` - [OPTIONAL] - Callback function to run after the route has been requested. The function will contain the response from the request.
-
-Please note that the plugin only works when the server contains exactly one connection.
+* `onComplete` - [OPTIONAL] - Callback function to run after the route has been requested. The function will contain the response from the request.
 
 
 ## Cron configuration
