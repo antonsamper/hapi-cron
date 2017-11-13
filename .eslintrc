@@ -1,6 +1,17 @@
 {
+    "env": {
+        "es6": true,
+        "node": true
+    },
     "extends": "hapi",
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaVersion": 8
+    },
+    "globals": {
+        "describe": true,
+        "it": true,
+        "expect": true,
+        "jest": true
     }
 }
