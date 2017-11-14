@@ -46,7 +46,7 @@ async function allSystemsGo() {
         server.route({
             method: 'GET',
             path: '/test-url',
-            handler: async function (request, h) {
+            handler: function (request, h) {
                 return 'hello world'
             }
         });
