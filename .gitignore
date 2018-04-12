@@ -14,3 +14,6 @@ coverage
 
 # Logs
 *.log
+
+#NPM
+package-lock.json

@@ -23,16 +23,16 @@
   },
   "homepage": "https://github.com/antonsamper/hapi-cron#readme",
   "devDependencies": {
-    "eslint": "^4.11.0",
+    "eslint": "^4.19.1",
     "eslint-config-hapi": "^11.1.0",
     "eslint-plugin-hapi": "^4.0.0",
-    "hapi": "^17.0.1",
+    "hapi": "^17.3.1",
     "jest": "^21.2.1",
-    "shot": "^4.0.3"
+    "shot": "^4.0.5"
   },
   "dependencies": {
     "cron": "^1.3.0",
-    "hoek": "^5.0.2"
+    "hoek": "^5.0.3"
   },
   "engines": {
     "node": ">=8.0.0"
