@@ -1,6 +1,5 @@
-# hapi-cron [![Build Status](https://travis-ci.org/antonsamper/hapi-cron.svg?branch=master)](https://travis-ci.org/antonsamper/hapi-cron)
+# hapi-cron [![Build Status](https://travis-ci.org/antonsamper/hapi-cron.svg?branch=master)](https://travis-ci.org/antonsamper/hapi-cron) [![Greenkeeper badge](https://badges.greenkeeper.io/antonsamper/hapi-cron.svg)](https://greenkeeper.io/)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/antonsamper/hapi-cron.svg)](https://greenkeeper.io/)
 A Hapi plugin to setup cron jobs that will call predefined server routes at specified times.
 
 
