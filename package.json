@@ -1,6 +1,6 @@
 {
   "name": "hapi-cron",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Hapi plugin to setup cron jobs that will call predefined server routes at specified times",
   "main": "lib/index.js",
   "scripts": {
