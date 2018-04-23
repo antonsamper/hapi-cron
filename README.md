@@ -38,7 +38,7 @@ async function allSystemsGo() {
                         url: '/test-url'
                     },
                     onComplete: (res) => {
-                        console.info('hapi cron has run');
+                        console.log(res); // 'hello world'
                     }
                 }]
             }
