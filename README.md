@@ -69,7 +69,7 @@ allSystemsGo();
 * `request` - The request object containing the route url path. Other [options](https://hapijs.com/api#serverinjectoptions-callback) can also be passed into the request object 
     * `url` - Route path to request
     * `method` - Request method (defaults to `GET`) - `optional`
-* `onComplete` - Function to run after the route has been requested. The function will contain the response from the request - `optional`
+* `onComplete` - Function to run after the route has been requested. The function will contain the result from the request - `optional`
 
 
 ## Cron configuration

@@ -191,7 +191,7 @@ describe('registration assertions', () => {
         }
     });
 
-    it('should throw error when a job is defined without a request object', async () => {
+    it('should throw error when a job is defined without a url in the request object', async () => {
 
         const server = new Hapi.Server();
 
@@ -212,6 +212,32 @@ describe('registration assertions', () => {
         }
         catch (err) {
             expect(err.message).toEqual('Missing job request url');
+        }
+    });
+
+    it('should throw error when a job is defined with an invalid onComplete value', async () => {
+
+        const server = new Hapi.Server();
+
+        try {
+            await server.register({
+                plugin: HapiCron,
+                options: {
+                    jobs: [{
+                        name: 'testcron',
+                        time: '*/10 * * * * *',
+                        timezone: 'Europe/London',
+                        request: {
+                            method: 'GET',
+                            url: '/test-url'
+                        },
+                        onComplete: 'invalid'
+                    }]
+                }
+            });
+        }
+        catch (err) {
+            expect(err.message).toEqual('onComplete value must be a function');
         }
     });
 });
@@ -264,12 +290,19 @@ describe('plugin functionality', () => {
             }
         });
 
+        server.route({
+            method: 'GET',
+            path: '/test-url',
+            handler: () => 'hello world'
+        });
+
         expect(Shot.inject).not.toHaveBeenCalled();
         expect(onComplete).not.toHaveBeenCalled();
 
         await server.plugins['hapi-cron'].jobs.testcron._callbacks[0]();
 
         expect(onComplete).toHaveBeenCalledTimes(1);
+        expect(onComplete).toHaveBeenCalledWith('hello world');
         expect(Shot.inject.mock.calls[0][1].method).toBe('GET');
         expect(Shot.inject.mock.calls[0][1].url).toBe('/test-url');
     });
