@@ -15,5 +15,5 @@ coverage
 # Logs
 *.log
 
-#NPM
+# NPM
 package-lock.json
