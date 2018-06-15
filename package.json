@@ -24,7 +24,7 @@
   "homepage": "https://github.com/antonsamper/hapi-cron#readme",
   "devDependencies": {
     "eslint": "^4.19.1",
-    "eslint-config-hapi": "^11.1.0",
+    "eslint-config-hapi": "^12.0.0",
     "eslint-plugin-hapi": "^4.0.0",
     "hapi": "^17.3.1",
     "jest": "^22.4.3",
