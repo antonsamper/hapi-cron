@@ -4,7 +4,6 @@
 
 const HapiCron = require('../lib');
 const Hapi = require('hapi');
-const Shot = require('shot');
 
 
 /*********************************************************************************
@@ -267,12 +266,10 @@ describe('plugin functionality', () => {
         expect(server.plugins['hapi-cron'].jobs.testcron).toBeDefined();
     });
 
-    it('should ensure server.inject is called with the plugin options', async () => {
+    it('should ensure the request and callback from the plugin options are triggered', async (done) => {
 
         const onComplete = jest.fn();
         const server = new Hapi.Server();
-
-        Shot.inject = jest.fn(Shot.inject);
 
         await server.register({
             plugin: HapiCron,
@@ -296,15 +293,18 @@ describe('plugin functionality', () => {
             handler: () => 'hello world'
         });
 
-        expect(Shot.inject).not.toHaveBeenCalled();
+        server.events.on('response', (request) => {
+            expect(request.method).toBe('get');
+            expect(request.path).toBe('/test-url');
+            done();
+        });
+
         expect(onComplete).not.toHaveBeenCalled();
 
         await server.plugins['hapi-cron'].jobs.testcron._callbacks[0]();
 
         expect(onComplete).toHaveBeenCalledTimes(1);
         expect(onComplete).toHaveBeenCalledWith('hello world');
-        expect(Shot.inject.mock.calls[0][1].method).toBe('GET');
-        expect(Shot.inject.mock.calls[0][1].url).toBe('/test-url');
     });
 
     it('should not start the jobs until the server starts', async () => {
