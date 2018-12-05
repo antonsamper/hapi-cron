@@ -294,6 +294,7 @@ describe('plugin functionality', () => {
         });
 
         server.events.on('response', (request) => {
+
             expect(request.method).toBe('get');
             expect(request.path).toBe('/test-url');
             done();
