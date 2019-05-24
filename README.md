@@ -18,7 +18,7 @@ $ npm install --save hapi-cron
 
 ## Usage
 ```javascript
-const Hapi = require('hapi');
+const Hapi = require('@hapi/hapi');
 const HapiCron = require('hapi-cron');
 
 const server = new Hapi.Server();
