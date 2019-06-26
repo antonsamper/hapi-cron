@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "cron": "^1.7.1",
-    "@hapi/hoek": "^6.1.2"
+    "@hapi/hoek": "^8.0.0"
   },
   "engines": {
     "node": ">=8.0.0"
