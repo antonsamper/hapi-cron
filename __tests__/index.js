@@ -16,7 +16,7 @@ const lab = exports.lab = Lab.script();
 
 lab.test('registration assertions', () => {
 
-    expect('should register plugin wexpecthout errors', async () => {
+    expect('should register plugin without errors', async () => {
 
         const server = new Hapi.Server();
 
@@ -25,7 +25,7 @@ lab.test('registration assertions', () => {
         });
     });
 
-    expect('should throw error when a job is defined wexpecth an existing name', async () => {
+    expect('should throw error when a job is defined with an existing name', async () => {
 
         const server = new Hapi.Server();
 
@@ -56,7 +56,7 @@ lab.test('registration assertions', () => {
         }
     });
 
-    expect('should throw error when a job is defined wexpecthout a name', async () => {
+    expect('should throw error when a job is defined without a name', async () => {
 
         const server = new Hapi.Server();
 
@@ -79,7 +79,7 @@ lab.test('registration assertions', () => {
         }
     });
 
-    expect('should throw error when a job is defined wexpecthout a time', async () => {
+    expect('should throw error when a job is defined without a time', async () => {
 
         const server = new Hapi.Server();
 
@@ -102,7 +102,7 @@ lab.test('registration assertions', () => {
         }
     });
 
-    expect('should throw error when a job is defined wexpecth an invalid time', async () => {
+    expect('should throw error when a job is defined with an invalid time', async () => {
 
         const server = new Hapi.Server();
 
@@ -126,7 +126,7 @@ lab.test('registration assertions', () => {
         }
     });
 
-    expect('should throw error when a job is defined wexpecth an invalid timezone', async () => {
+    expect('should throw error when a job is defined with an invalid timezone', async () => {
 
         const server = new Hapi.Server();
 
@@ -150,7 +150,7 @@ lab.test('registration assertions', () => {
         }
     });
 
-    expect('should throw error when a job is defined wexpecthout a timezone', async () => {
+    expect('should throw error when a job is defined without a timezone', async () => {
 
         const server = new Hapi.Server();
 
@@ -173,7 +173,7 @@ lab.test('registration assertions', () => {
         }
     });
 
-    expect('should throw error when a job is defined wexpecthout a request object', async () => {
+    expect('should throw error when a job is defined without a request object', async () => {
 
         const server = new Hapi.Server();
 
@@ -194,7 +194,7 @@ lab.test('registration assertions', () => {
         }
     });
 
-    expect('should throw error when a job is defined wexpecthout a url in the request object', async () => {
+    expect('should throw error when a job is defined without a url in the request object', async () => {
 
         const server = new Hapi.Server();
 
@@ -218,7 +218,7 @@ lab.test('registration assertions', () => {
         }
     });
 
-    expect('should throw error when a job is defined wexpecth an invalid onComplete value', async () => {
+    expect('should throw error when a job is defined with an invalid onComplete value', async () => {
 
         const server = new Hapi.Server();
 
@@ -309,7 +309,7 @@ lab.test('plugin functionalexpecty', () => {
         await server.plugins['hapi-cron'].jobs.testcron._callbacks[0]();
 
         expect(onComplete).toHaveBeenCalledTimes(1);
-        expect(onComplete).toHaveBeenCalledWexpecth('hello world');
+        expect(onComplete).toHaveBeenCalledwith('hello world');
     });
 
     expect('should not start the jobs until the server starts', async () => {
