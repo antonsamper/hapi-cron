@@ -47,5 +47,10 @@
       }
     },
     "testEnvironment": "node"
-  }
+  },
+  "files": [
+    "/lib",
+    "/LICENSE",
+    "/README.md"
+  ]
 }
